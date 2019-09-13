@@ -2,42 +2,17 @@
 Design and simulate a simplified ARM single-cycle processor using SystemVerilog.
 
 ### Abstract
-For this assignment, you will design and simulate a simplified ARM single-cycle processor using
-SystemVerilog. You will combine your ALU from your previous assignment with the code for the
-rest of the processor taken from our textbook. Then you will load a test program and confirm that
-the system works. Next, you will implement two new instructions, and then write a new test
-program that confirms the new instructions work as well. By the end of this assignment, you should
-thoroughly understand the internal operation of the ARM single-cycle processor.
-The details of the simplified ARM single-cycle processor are given in Section 7.3 of our text. The
-single-cycle processor schematic from the text is repeated at the end of this assignment for your
-convenience. This version of the ARM single-cycle processor can execute the following
-instructions: ADD, SUB, AND, ORR, LDR, STR, and B.
-Our model of the single-cycle ARM processor divides the machine into two major units: the
-control and the datapath. Each unit is constructed from various functional blocks. For example,
-as shown in the figure on the last page of this lab, the datapath contains the 32-bit ALU that you
-designed previously, the register file, the sign extension logic, and five multiplexers to choose
-appropriate operands.
+The main objective of this project is to design and simulate a simplified ARM single-cycle processor using SystemVerilog.
+Then you will load a test program and confirm that the system works.
+By the end of this assignment, you should thoroughly understand the internal operation of the ARM single-cycle processor.
+This version of the ARM single-cycle processor can execute the following instructions: ADD, SUB, AND, ORR, LDR, STR, and B.
+Our model of the single-cycle ARM processor divides the machine into two major units: the control and the datapath. Each unit is constructed from various functional blocks. For example, as shown in the figure on the last page of this lab, the datapath contains the 32-bit ALU that you designed previously, the register file, the sign extension logic, and five multiplexers to choose appropriate operands.
 1. ARM Single-Cycle Processor
-The SystemVerilog single-cycle ARM module is given in Section 7.6 of the text. Use the electronic
-versions of all these files provided on the textbook website.
-Study the files until you are familiar with their contents. Look in arm.sv. The top-level module
-(named top) contains the arm processor (arm) and the data and instruction memories (dmem and
-imem). Now look at the processor module (called arm). It instantiates two sub-modules,
-controller and datapath. Now take a look at the controller module and its
+Look in Single-Cycle_Processor.sv. The top-level module
+(named top) contains the arm processor (arm) and the data and instruction memories (dmem and imem). Now look at the processor module (called arm). It instantiates two sub-modules, controller and datapath. Now take a look at the controller module and its
 submodules. It contains two sub-modules: decode and condlogic. The decode module
-produces all but three control signals. The condlogic module produces those remaining three
-control signals that update architectural state (RegWrite, MemWrite) or determine the next PC
-(PCSrc). These three signals depend on the condition mnemonic from the instruction (Cond3:0)
-and the stored condition flags (Flags3:0) that are internal to the condlogic module. The
-condition flags produced by the ALU (ALUFlags3:0) are updated in the flags registers dependent
-on the S bit (FlagW1:0
-Dr.	Linda	S.	DeBrunner EEL	4713 Computer	Architecture Spring	2018
-schematic. You’ll notice that the alu module is not defined. Copy your ALU from Assignment
-#2 into the project. Be sure the module name matches the instance module name (alu), and make
-sure the inputs and outputs are in the same order as in they are expected in the datapath module.
-The instruction and data memories instantiated in the top module are each a 64-word × 32-bit
-array. The instruction memory needs to contain some initial values representing the program. The
-test program is given in Figure 7.60. Study the program until you understand what it does. The
+produces all but three control signals. The condlogic module produces those remaining three control signals that update architectural state (RegWrite, MemWrite) or determine the next PC (PCSrc). These three signals depend on the condition mnemonic from the instruction (Cond3:0) and the stored condition flags (Flags3:0) that are internal to the condlogic module. The condition flags produced by the ALU (ALUFlags3:0) are updated in the flags registers dependent on the S bit (FlagW1:0 schematic. You’ll notice that the alu module is not defined. Copy your ALU from Assignment #2 into the project. Be sure the module name matches the instance module name (alu), and make sure the inputs and outputs are in the same order as in they are expected in the datapath module. The instruction and data memories instantiated in the top module are each a 64-word × 32-bit
+array. The instruction memory needs to contain some initial values representing the program. The test program is given in Figure 7.60. Study the program until you understand what it does. The
 machine language code for the program is stored in memfile.dat.
 2. Testing the single-cycle ARM processor
 In a complex system, you need to know what the answer for various cases should be so that you
